@@ -136,6 +136,25 @@
             padding: clamp(3rem, 8vw, 5rem) var(--slide-padding) var(--slide-padding);
         }
 
+        /* Slides with heavy content → spread across full height */
+        .slide-content.spread {
+            justify-content: center;
+            gap: var(--content-gap);
+        }
+
+        /* Grids and lists inside .spread grow to fill available space */
+        .slide-content.spread .features,
+        .slide-content.spread .features-3,
+        .slide-content.spread .route-list,
+        .slide-content.spread .vs-grid {
+            flex: 1;
+            align-content: center;
+        }
+
+        .slide-content.spread .route-list {
+            justify-content: center;
+        }
+
         /* ===========================================
            TAP ZONES (left = back, right = forward)
            =========================================== */
@@ -371,6 +390,13 @@
                 padding-right: calc(var(--slide-padding) + env(safe-area-inset-right));
             }
 
+            /* Spread content to fill full screen height */
+            .slide-content.spread {
+                justify-content: space-between;
+                padding-top: max(4rem, calc(env(safe-area-inset-top) + 3rem));
+                padding-bottom: max(2.5rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+            }
+
             .slide-counter {
                 bottom: max(0.75rem, calc(env(safe-area-inset-bottom) + 0.25rem));
             }
@@ -515,7 +541,7 @@
 
             <!-- 4. ТРИ КОМПОНЕНТА -->
             <section class="slide" data-slide="3">
-                <div class="slide-content">
+                <div class="slide-content spread">
                     <h2 class="reveal">Как это устроено</h2>
                     <div class="features-3 reveal">
                         <div class="feature-3">
@@ -543,7 +569,7 @@
 
             <!-- 5. РОУТИНГ -->
             <section class="slide" data-slide="4">
-                <div class="slide-content">
+                <div class="slide-content spread">
                     <h2 class="reveal">Задача <span class="dim">&rarr;</span> Skill</h2>
                     <div class="route-list reveal">
                         <div class="route">
@@ -578,10 +604,10 @@
 
             <!-- 6. ОСНОВЫ -->
             <section class="slide" data-slide="5">
-                <div class="slide-content">
+                <div class="slide-content spread">
                     <p class="pill reveal">Основы</p>
                     <h2 class="reveal">Окружение. CLI. Структура.</h2>
-                    <div class="features reveal" style="margin-top:var(--content-gap);">
+                    <div class="features reveal">
                         <div class="feature">
                             <h3 class="blue">Environment</h3>
                             <p>uv &mdash; менеджер. Минимум: .venv/ + streamlit_app.py</p>
@@ -605,10 +631,10 @@
 
             <!-- 7. UI -->
             <section class="slide" data-slide="6">
-                <div class="slide-content">
+                <div class="slide-content spread">
                     <p class="pill reveal" style="color:var(--purple);background:rgba(191,90,242,0.1);">Интерфейс</p>
                     <h2 class="reveal">UI и дизайн.</h2>
-                    <div class="features reveal" style="margin-top:var(--content-gap);">
+                    <div class="features reveal">
                         <div class="feature">
                             <h3>Layouts</h3>
                             <p>Sidebar для фильтров. Макс. 4 колонки</p>
@@ -632,10 +658,10 @@
 
             <!-- 8. ПЕРФОРМАНС -->
             <section class="slide" data-slide="7">
-                <div class="slide-content">
+                <div class="slide-content spread">
                     <p class="pill reveal" style="color:var(--orange);background:rgba(255,159,10,0.1);">Скорость</p>
                     <h2 class="reveal">Данные. Кэш. Стейт.</h2>
-                    <div class="features reveal" style="margin-top:var(--content-gap);">
+                    <div class="features reveal">
                         <div class="feature">
                             <h3>Performance</h3>
                             <p>@st.cache_data + @st.fragment. Условный рендеринг</p>
@@ -659,10 +685,10 @@
 
             <!-- 9. ПРОДВИНУТОЕ -->
             <section class="slide" data-slide="8">
-                <div class="slide-content">
+                <div class="slide-content spread">
                     <p class="pill reveal" style="color:var(--green);background:rgba(48,209,88,0.1);">Продвинутое</p>
                     <h2 class="reveal">Чат. Multipage. Компоненты.</h2>
-                    <div class="features reveal" style="margin-top:var(--content-gap);">
+                    <div class="features reveal">
                         <div class="feature">
                             <h3>Chat UI</h3>
                             <p>write_stream() для streaming. Файлы и аудио</p>
@@ -686,7 +712,7 @@
 
             <!-- 10. СРАВНЕНИЕ -->
             <section class="slide" data-slide="9">
-                <div class="slide-content">
+                <div class="slide-content spread">
                     <h2 class="reveal">
                         <span class="gradient-text-warm">Без</span>
                         <span class="dim"> / </span>
