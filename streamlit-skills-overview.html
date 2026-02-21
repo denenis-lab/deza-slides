@@ -2,7 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Streamlit Agent Skills</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -339,48 +341,113 @@
         .reveal:nth-child(4) { transition-delay: 0.35s; }
 
         /* ===========================================
-           RESPONSIVE
+           RESPONSIVE — iPhone portrait-first
+           SE: 375×667  14: 390×844  15 Pro Max: 430×932
            =========================================== */
-        @media (max-width: 480px) {
+
+        /* All iPhones portrait (up to 430px) */
+        @media (max-width: 430px) and (orientation: portrait) {
             :root {
-                --title-size: clamp(1.75rem, 9vw, 2.5rem);
-                --h2-size: clamp(1.2rem, 6vw, 1.75rem);
-                --h3-size: clamp(0.8rem, 3.5vw, 1rem);
-                --body-size: clamp(0.78rem, 3vw, 0.95rem);
-                --small-size: clamp(0.68rem, 2.5vw, 0.82rem);
-                --slide-padding: clamp(1rem, 4vw, 1.5rem);
+                --title-size: 2.25rem;
+                --h2-size: 1.5rem;
+                --h3-size: 0.95rem;
+                --body-size: 0.95rem;
+                --small-size: 0.82rem;
+                --slide-padding: 1.25rem;
+                --content-gap: 1rem;
             }
-            .features { grid-template-columns: 1fr; }
-            .feature { border-radius: 0 !important; }
-            .feature:first-child { border-radius: 12px 12px 0 0 !important; }
-            .feature:last-child { border-radius: 0 0 12px 12px !important; }
-            .features-3 { grid-template-columns: 1fr; gap: 0.5rem; }
+
+            /* Safe area: notch / Dynamic Island / home bar */
+            .story-progress {
+                padding-top: max(12px, env(safe-area-inset-top));
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+
+            .slide-content {
+                padding-top: max(3.5rem, calc(env(safe-area-inset-top) + 2.5rem));
+                padding-bottom: max(1.5rem, calc(env(safe-area-inset-bottom) + 0.75rem));
+                padding-left: calc(var(--slide-padding) + env(safe-area-inset-left));
+                padding-right: calc(var(--slide-padding) + env(safe-area-inset-right));
+            }
+
+            .slide-counter {
+                bottom: max(0.75rem, calc(env(safe-area-inset-bottom) + 0.25rem));
+            }
+
+            /* 2x2 grid stays — portrait has plenty of vertical space */
+            .features { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+            .feature { padding: 0.85rem; }
+            .feature h3 { font-size: 0.92rem; }
+            .feature p { font-size: 0.8rem; line-height: 1.4; }
+
+            /* 3-col → stack with icon left */
+            .features-3 { grid-template-columns: 1fr; gap: 0.6rem; }
             .feature-3 { text-align: left; display: flex; gap: 0.75rem; align-items: center; }
             .feature-3-icon { flex-shrink: 0; margin-bottom: 0; }
-            .feature-3-icon svg { width: 28px; height: 28px; }
-            .vs-grid { grid-template-columns: 1fr; gap: 1rem; }
-            .route { flex-wrap: wrap; gap: 0.15rem 0.5rem; }
-            .route-arrow { display: none; }
-            .route-skill { font-size: clamp(0.65rem, 2.5vw, 0.75rem); }
+            .feature-3-icon svg { width: 32px; height: 32px; }
+
+            /* Routes stay horizontal */
+            .route-list { max-width: 100%; gap: 0; }
+            .route { gap: 0.5rem; padding: 0.55rem 0; }
+            .route-trigger { font-size: 0.9rem; }
+            .route-skill { font-size: 0.78rem; }
+
+            /* VS — side by side works in portrait */
+            .vs-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .vs-col h3 { font-size: 0.95rem; }
+            .vs-item { font-size: 0.82rem; padding: 0.4rem 0; }
+
+            /* Readable line height for body */
+            p { line-height: 1.55; }
+            h1 { line-height: 1.1; }
         }
 
-        @media (max-height: 600px) {
+        /* iPhone SE — smaller screen, tighter */
+        @media (max-width: 375px) and (orientation: portrait) {
             :root {
-                --title-size: clamp(1.5rem, 5vw, 2.5rem);
-                --h2-size: clamp(1.1rem, 3.5vw, 1.75rem);
-                --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem);
-                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --title-size: 1.9rem;
+                --h2-size: 1.3rem;
+                --h3-size: 0.88rem;
+                --body-size: 0.88rem;
+                --small-size: 0.78rem;
+                --slide-padding: 1rem;
+                --content-gap: 0.75rem;
+            }
+            .feature { padding: 0.7rem; }
+            .feature h3 { font-size: 0.85rem; }
+            .feature p { font-size: 0.75rem; }
+            .vs-item { font-size: 0.78rem; }
+            .route-trigger { font-size: 0.85rem; }
+            .route-skill { font-size: 0.72rem; }
+        }
+
+        /* Tablet portrait */
+        @media (min-width: 431px) and (max-width: 768px) {
+            :root {
+                --title-size: clamp(2rem, 5vw, 3rem);
+                --h2-size: clamp(1.4rem, 3.5vw, 2rem);
+                --slide-padding: clamp(1.5rem, 4vw, 2.5rem);
             }
         }
 
-        @media (max-height: 500px) and (max-width: 900px) {
+        /* Landscape phones — compact everything */
+        @media (max-height: 500px) and (orientation: landscape) {
             :root {
-                --title-size: clamp(1.2rem, 4vw, 1.8rem);
-                --h2-size: clamp(1rem, 3vw, 1.4rem);
-                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: 1.5rem;
+                --h2-size: 1.15rem;
+                --h3-size: 0.78rem;
+                --body-size: 0.78rem;
+                --small-size: 0.7rem;
+                --slide-padding: 0.75rem;
+                --content-gap: 0.4rem;
             }
             .features { grid-template-columns: repeat(2, 1fr); }
             .features-3 { grid-template-columns: repeat(3, 1fr); }
+            .feature { padding: 0.5rem; }
+            .feature h3 { font-size: 0.72rem; }
+            .feature p { font-size: 0.65rem; }
+            .slide-content { padding-top: 2.5rem; padding-bottom: 0.5rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
